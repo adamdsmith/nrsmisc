@@ -1,4 +1,4 @@
-#' \code{adsmisc} package
+#' \code{nrsmisc} package
 #'
 #' Miscellaneous functions for life in the natural resources science, including
 #'  retrieving weather (from multiple potential sources), tides, sunrise/sunset
@@ -7,7 +7,7 @@
 #'  data, numeric vectors, and strings, etc.
 #'
 #' @docType package
-#' @name adsmisc
+#' @name nrsmisc
 #' @import dplyr
 #' @import sf
 #' @importFrom rlang .data

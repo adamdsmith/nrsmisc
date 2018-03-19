@@ -21,7 +21,7 @@
 get_wx <- function(stn = NULL, start = Sys.Date(), end = start, out_tz = "GMT") {
 
   stopifnot(!is.null(stn))
-  stns <- readRDS(system.file("extdata/wx_stations.rds", package = "adsmisc"))
+  stns <- readRDS(system.file("extdata/wx_stations.rds", package = "nrsmisc"))
   stopifnot(stn %in% stns$id)
 
   if (!requireNamespace("riem", quietly = TRUE))

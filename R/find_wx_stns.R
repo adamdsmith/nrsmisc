@@ -20,7 +20,7 @@ find_wx_stns <- function(lon, lat, n_stns = 5, id_only = TRUE, plot = FALSE) {
 
   stopifnot(all(c(!is.na(lat), !is.na(lon))))
   stopifnot(identical(length(lat), length(lon)))
-  stns <- readRDS(system.file("extdata/wx_stations.rds", package = "adsmisc"))
+  stns <- readRDS(system.file("extdata/wx_stations.rds", package = "nrsmisc"))
   ll <- cbind(lon, lat)
   stns$dist_km <- as.numeric(
     round(geosphere::distm(ll, cbind(stns$lon, stns$lat)) / 1000, 1))
