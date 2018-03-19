@@ -15,6 +15,9 @@ r:
   - devel
   - oldrel
 
+r_packages:
+  - ncdf4
+
 notifications:
   email:
     on_success: change
