@@ -1,0 +1,7 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+[![Build Status](https://travis-ci.org/adamdsmith/nrsmisc.png)](https://travis-ci.org/adamdsmith/nrsmisc)
