@@ -5,7 +5,7 @@
 \title{Retrieve sunrise or sunset times by geographic location}
 \usage{
 get_sun(lon, lat, start = Sys.Date(), end = start,
-  direction = c("sunrise", "sunset"), out_tz = "GMT")
+  direction = c("sunrise", "sunset", "dawn", "dusk"), out_tz = "GMT")
 }
 \arguments{
 \item{lon}{numeric scalar of position longitude (decimal degrees; WGS84)}
@@ -16,8 +16,10 @@ get_sun(lon, lat, start = Sys.Date(), end = start,
 
 \item{end}{character or Date scalar of start date ("YYYY-MM-DD")}
 
-\item{direction}{one of "dawn", "dusk", "sunrise", or "sunset", indicating
-which ephemerides should be calculated}
+\item{direction}{any combination of "dawn", "dusk", "sunrise", or "sunset",
+indicating which ephemerides should be calculated. Here, dawn and dusk
+represent civil sunrise and civil sunset (sun 6 degrees below horizon),
+respectively.}
 
 \item{out_tz}{time zone specification to be used for output. System-specific
 (see \link[base]{timezones}. Default is "GMT" (UTC; Universal Time,
@@ -30,5 +32,5 @@ Very thin wrapper around \link[maptools]{sunriset} mainly for the
 \examples{
 get_sun(-83, 34)
 get_sun(-83, 34, start = "2017-12-31", end = "2017-12-31",
-        direction = "sunset", out_tz = "America/New_York")
+        direction = c("sunrise", "sunset"), out_tz = "America/New_York")
 }
