@@ -47,6 +47,6 @@ get_sun <- function (lon, lat, start = Sys.Date(),
     names(tmp)[2] <- d
     tmp
   })
-  sun <- Reduce(function(x, y) merge(x, y, by = "date_str", all = TRUE), sun)
+  sun <- Reduce(function(...) merge(..., by = "date_str", all.x = TRUE), sun)
   sun
 }
