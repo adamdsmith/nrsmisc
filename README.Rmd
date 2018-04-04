@@ -5,3 +5,36 @@ output:
 ---
 
 [![Build Status](https://travis-ci.org/adamdsmith/nrsmisc.png)](https://travis-ci.org/adamdsmith/nrsmisc)
+
+
+```{r, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE}
+library(nrsmisc)
+```
+
+# USFWS Disclaimer
+
+This United States Fish & Wildlife Service (USFWS) code is provided on an "as is" basis and the user assumes responsibility for its use.  USFWS has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information.  Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recomendation or favoring by USFWS.  The USFWS seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by USFWS or the United States Government. 
+
+# Installing `nrsmisc`
+
+The `nrsmisc` package requires you to have [R](https://www.r-project.org/) (>= 3.3) installed on your computer as well as [Rtools](https://cran.r-project.org/bin/windows/Rtools/).  Both will require administrative priveleges but the installation of packages after this initial install will not.
+
+With R and Rtools installed, it's simple to install and load the `nrsmisc` package to access its functionality. 
+
+**NOTE**: If you receive a SSL or CA Certificate error, you may need to take the extra step documented below.  
+
+```
+# If devtools package is not installed
+install.packages("devtools", dependencies = TRUE)
+
+# Now install and load nrsmisc
+devtools::install_github("adamdsmith/nrsmisc")
+library("nrsmisc")
+
+# If you receive a SSL or CA Certificate error
+install.packages("httr")
+library("httr")
+set_config(config(ssl_verifypeer = 0L))
+devtools::install_github("adamdsmith/nrsmisc")
+library("nrsmisc")
+```

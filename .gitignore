@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 nrsmisc.Rproj
+Output/
+README_cache/
+README.Rmd
