@@ -4,12 +4,17 @@
 \alias{find_wx_stns}
 \title{Find nearest ASOS weather station by geographic location (USA only)}
 \usage{
-find_wx_stns(lon, lat, n_stns = 5, id_only = TRUE, plot = FALSE)
+find_wx_stns(lon = NULL, lat = NULL, address = NULL, n_stns = 5,
+  id_only = TRUE, plot = FALSE)
 }
 \arguments{
 \item{lon}{numeric scalar of position longitude (decimal degrees; WGS84)}
 
 \item{lat}{numeric scalar of position latitude (decimal degrees; WGS84)}
+
+\item{address}{character scalar of a street address or place name
+(e.g. "Mattamuskeet NWR" or "135 Phoenix Rd, Athens, GA"); overrides
+\code{lat} and \code{lon} if specified. See example}
 
 \item{n_stns}{how many nearest stations to return?}
 
@@ -24,4 +29,7 @@ The returned station abbreviations can then be passed to \code{\link{get_wx}}
 \examples{
 find_wx_stns(-83, 34)
 find_wx_stns(-83, 34, id_only = FALSE)
+\dontrun{
+find_wx_stns(address = "Mattamuskeet NWR", id_only = FALSE, plot = TRUE)
+}
 }
