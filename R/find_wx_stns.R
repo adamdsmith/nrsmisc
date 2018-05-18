@@ -1,12 +1,15 @@
 #' Find nearest ASOS weather station by geographic location (USA only)
 #'
-#' The returned station abbreviations can then be passed to \code{\link{get_wx}}
+#' The returned station abbreviations (FAA station identifiers) can then be passed to
+#' \code{\link{get_wx}}, \code{\link{get_wx_ACIS}}, or \code{\link{get_ACIS_meta}}
 #'
 #' @param lon numeric scalar of position longitude (decimal degrees; WGS84)
 #' @param lat numeric scalar of position latitude (decimal degrees; WGS84)
 #' @param address character scalar of a street address or place name
 #'  (e.g. "Mattamuskeet NWR" or "135 Phoenix Rd, Athens, GA"); overrides
 #'  \code{lat} and \code{lon} if specified. See example
+#' @param asos_only logical (default = FALSE); return only ASOS stations? Primarily
+#'  used in conjunction with \code{\link{get_wx}}
 #' @param n_stns how many nearest stations to return?
 #' @param id_only logical; return only station abbreviations or station info too?
 #' @param plot logical; generate plot showing station positions relative to input
@@ -17,9 +20,11 @@
 #' find_wx_stns(-83, 34, id_only = FALSE)
 #' \dontrun{
 #' find_wx_stns(address = "Mattamuskeet NWR", id_only = FALSE, plot = TRUE)
+#' # Return only ASOS stations...
+#' find_wx_stns(address = "Mattamuskeet NWR", asos_only = TRUE, plot = TRUE)
 #' }
 
-find_wx_stns <- function(lon = NULL, lat = NULL, address = NULL,
+find_wx_stns <- function(lon = NULL, lat = NULL, address = NULL, asos_only = FALSE,
                          n_stns = 5, id_only = TRUE, plot = FALSE) {
 
   if (!requireNamespace("geosphere", quietly = TRUE))
@@ -42,6 +47,9 @@ find_wx_stns <- function(lon = NULL, lat = NULL, address = NULL,
   stns$dist_km <- as.numeric(
     round(geosphere::distm(ll, cbind(stns$lon, stns$lat)) / 1000, 1))
   stns <- arrange(stns, .data$dist_km)
+
+  if (asos_only)
+    stns <- filter(stns, ASOS)
   out <- utils::head(stns, n_stns)
 
   if (plot) {
@@ -55,9 +63,9 @@ find_wx_stns <- function(lon = NULL, lat = NULL, address = NULL,
                  stringsAsFactors = FALSE)
     )
     latr <- range(plot_df$lat)
-    latr <- latr + c(-1, 1) * 0.5 * diff(latr)
+    latr <- latr + c(-1, 1) * diff(latr)
     lonr <- range(plot_df$lon)
-    lonr <- lonr + c(-1, 1) * 0.5 * diff(lonr)
+    lonr <- lonr + c(-1, 1) * diff(lonr)
     bm <- try(suppressWarnings(
                 suppressMessages(
                   bm <- ggmap::get_map(location = c(lonr[1], latr[1], lonr[2], latr[2])))),
@@ -82,11 +90,3 @@ find_wx_stns <- function(lon = NULL, lat = NULL, address = NULL,
   if (id_only) out <- out$id
   out
 }
-
-# # Function to update available ASOS stations in US
-# stations <- lapply(datasets::state.abb, function(ST) {
-#   riem::riem_stations(paste0(ST, "_ASOS"))
-# })
-# stations <- do.call("rbind", stations)
-# with(stations, plot(lon,lat))
-# saveRDS(stations, file = "./inst/extdata/wx_stations.rds")

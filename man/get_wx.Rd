@@ -8,7 +8,7 @@ get_wx(stn = NULL, start = Sys.Date(), end = start, out_tz = "GMT")
 }
 \arguments{
 \item{stn}{character scalar of US ASOS station from which to retrieve
-weather; see \code{\link{find_wx_stns}}.}
+weather; see \code{\link{find_wx_stns}} using option \code{asos_only} == \code{TRUE}.}
 
 \item{start}{character or Date scalar OR vector (see Details) of start date ("YYYY-MM-DD")}
 

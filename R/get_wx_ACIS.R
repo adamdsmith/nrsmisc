@@ -6,9 +6,9 @@
 
 #' @param stn scalar of station identification code for which to retrieve
 #'  meteorological data. Several options are available, such as WBAN, COOP, FAA, WMO,
-#'  ICAO, and GHCN. \code{\link{find_wx_stns}} returns the FAA code. See the
-#'  \code{Required parameters} documentation for the ACIS web server for details.
-#'  (\url{http://www.rcc-acis.org/docs_webservices.html})
+#'  ICAO, and GHCN. \code{\link{find_wx_stns}} returns one of the FAA, WBAN, or COOP
+#'  code, depending on the station. See the \code{Required parameters} documentation
+#'  for the ACIS web server for details. (\url{http://www.rcc-acis.org/docs_webservices.html})
 #' @param start character or Date scalar of start date ("YYYY-MM-DD")
 #' @param end character or Date scalar of end date ("YYYY-MM-DD"); optional (defaults
 #'   to same day as start)
@@ -21,13 +21,13 @@
 #'  evaporation not currently supported.
 #' @export
 #' @examples
-#' # McKellar Airport, Jackson, TN
-#' # Use FAA code
-#' (jma_faa <- find_wx_stns(-88.824885, 35.636737, n_stns = 1))
-#' jma <- get_wx_ACIS("MKL", start = "2017-04-01", end = "2017-04-30")
-#' # Use GHCN code (see rnoaa::ghcn_stations())
-#' jma2 <- get_wx_ACIS("USW00003811", start = "2017-04-01", end = "2017-04-30")
-#' identical(jma, jma2)
+#' # Atlanta Hartsfield-Jackson airport
+#' # Use default code returned by function; in this case the FAA code
+#' (atl_def <- find_wx_stns(-84.430876, 33.640139, n_stns = 1))
+#' atl <- get_wx_ACIS("ATL", start = "2017-04-01", end = "2017-04-30")
+#' # Use WMO code
+#' atl2 <- get_wx_ACIS("72219", start = "2017-04-01", end = "2017-04-30")
+#' identical(atl, atl2)
 
 get_wx_ACIS <- function(stn = NULL, start = Sys.Date(), end = start,
                         elems = c("maxt", "mint", "avgt", "pcpn", "snow", "snwd")) {

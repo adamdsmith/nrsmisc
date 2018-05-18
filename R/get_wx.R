@@ -6,7 +6,7 @@
 #'  desired, in which case the \code{end} argument is ignored.
 #'
 #' @param stn character scalar of US ASOS station from which to retrieve
-#'   weather; see \code{\link{find_wx_stns}}.
+#'   weather; see \code{\link{find_wx_stns}} using option \code{asos_only} == \code{TRUE}.
 #' @param start character or Date scalar OR vector (see Details) of start date ("YYYY-MM-DD")
 #' @param end character or Date scalar of end date ("YYYY-MM-DD"); optional (defaults
 #'   to same day as start)

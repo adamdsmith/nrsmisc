@@ -4,8 +4,8 @@
 \alias{find_wx_stns}
 \title{Find nearest ASOS weather station by geographic location (USA only)}
 \usage{
-find_wx_stns(lon = NULL, lat = NULL, address = NULL, n_stns = 5,
-  id_only = TRUE, plot = FALSE)
+find_wx_stns(lon = NULL, lat = NULL, address = NULL, asos_only = FALSE,
+  n_stns = 5, id_only = TRUE, plot = FALSE)
 }
 \arguments{
 \item{lon}{numeric scalar of position longitude (decimal degrees; WGS84)}
@@ -16,6 +16,9 @@ find_wx_stns(lon = NULL, lat = NULL, address = NULL, n_stns = 5,
 (e.g. "Mattamuskeet NWR" or "135 Phoenix Rd, Athens, GA"); overrides
 \code{lat} and \code{lon} if specified. See example}
 
+\item{asos_only}{logical (default = FALSE); return only ASOS stations? Primarily
+used in conjunction with \code{\link{get_wx}}}
+
 \item{n_stns}{how many nearest stations to return?}
 
 \item{id_only}{logical; return only station abbreviations or station info too?}
@@ -24,12 +27,15 @@ find_wx_stns(lon = NULL, lat = NULL, address = NULL, n_stns = 5,
 location (default \code{FALSE})}
 }
 \description{
-The returned station abbreviations can then be passed to \code{\link{get_wx}}
+The returned station abbreviations (FAA station identifiers) can then be passed to
+\code{\link{get_wx}}, \code{\link{get_wx_ACIS}}, or \code{\link{get_ACIS_meta}}
 }
 \examples{
 find_wx_stns(-83, 34)
 find_wx_stns(-83, 34, id_only = FALSE)
 \dontrun{
 find_wx_stns(address = "Mattamuskeet NWR", id_only = FALSE, plot = TRUE)
+# Return only ASOS stations...
+find_wx_stns(address = "Mattamuskeet NWR", asos_only = TRUE, plot = TRUE)
 }
 }
