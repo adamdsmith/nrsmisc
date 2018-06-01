@@ -27,7 +27,7 @@ get_wx <- function(stn = NULL, start = Sys.Date(), end = start, out_tz = "GMT") 
   if (!requireNamespace("riem", quietly = TRUE))
     install.packages("riem", quiet = TRUE)
 
-  start <- as.Date(start); end <- as.Date(end)
+  start <- as.Date(start); end <- as.Date(end) + as.difftime(1, units = "days")
   if (length(start) > 1) {
     if (!requireNamespace("pbapply", quietly = TRUE))
       install.packages("pbapply", quiet = TRUE)
