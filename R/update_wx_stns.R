@@ -19,17 +19,19 @@ update_wx_stns <- function() {
   coop <- readr::read_fwf(coop_dat,
                           readr::fwf_empty(coop_dat)) %>%
     mutate(WBAN = NA_character_, FAA = NA_character_) %>%
-    select(WBAN, COOP = X2, FAA, GHCN = X4, name = X5, lat = X12, lon = X13, elev_ft = X15) %>%
+    select(.data$WBAN, COOP = .data$X2, .data$FAA, GHCN = .data$X4, name = .data$X5,
+           lat = .data$X12, lon = .data$X13, elev_ft = .data$X15) %>%
     # Needn't save GHCN for now
-    select(-GHCN)
+    select(-.data$GHCN)
 
   ### ASOS STATIONS
   asos_dat <- "https://www.ncdc.noaa.gov/homr/file/asos-stations.txt"
   asos <- readr::read_fwf(asos_dat,
                           readr::fwf_empty(asos_dat, skip = 2),
                           skip = 2) %>%
-    select(WBAN = X2, COOP = X3, FAA = X4, name = X5, lat = X11, lon = X12, elev_ft = X13) %>%
-    filter(!is.na(WBAN)) %>%
+    select(WBAN = .data$X2, COOP = .data$X3, FAA = .data$X4, name = .data$X5,
+           lat = .data$X11, lon = .data$X12, elev_ft = .data$X13) %>%
+    filter(!is.na(.data$WBAN)) %>%
     mutate(ASOS = TRUE)
   # Manually fix one missing station FAA ID (19 May 2018)
   asos[grep("CHERRY POINT MCAS ASOS", asos$name), "FAA"] <- "NKT"
@@ -39,24 +41,25 @@ update_wx_stns <- function() {
   awos <- readr::read_fwf(awos_dat,
                           readr::fwf_empty(awos_dat, skip = 2),
                           skip = 2) %>%
-    select(WBAN = X2, COOP = X3, FAA = X4, name = X5, lat = X9, lon = X10, elev_ft = X11) %>%
-    filter(!is.na(WBAN),
-           !WBAN %in% asos$WBAN) # If ASOS too, keep ASOS
+    select(WBAN = .data$X2, COOP = .data$X3, FAA = .data$X4, name = .data$X5,
+           lat = .data$X9, lon = .data$X10, elev_ft = .data$X11) %>%
+    filter(!is.na(.data$WBAN),
+           !.data$WBAN %in% asos$WBAN) # If ASOS too, keep ASOS
 
   # Reduce AWOS stations already in COOP
   awos <- awos %>%
-    filter(!COOP %in% coop$COOP)
+    filter(!.data$COOP %in% coop$COOP)
 
   # Remove COOPs that are also ASOS (prefer to keep ASOS)
   coop <- coop %>%
-    filter(!COOP %in% asos$COOP)
+    filter(!.data$COOP %in% asos$COOP)
 
   # Consolidate
   all_wx <- bind_rows(coop, awos, asos) %>%
-    mutate(ASOS = ifelse(is.na(ASOS), FALSE, TRUE),
-           id = ifelse(!is.na(FAA), FAA,
-                       ifelse(!is.na(WBAN), WBAN, COOP))) %>%
-    select(id, name, lon, lat, ASOS)
+    mutate(ASOS = ifelse(is.na(.data$ASOS), FALSE, TRUE),
+           id = ifelse(!is.na(.data$FAA), .data$FAA,
+                       ifelse(!is.na(.data$WBAN), .data$WBAN, .data$COOP))) %>%
+    select(.data$id, .data$name, .data$lon, .data$lat, .data$ASOS)
 
   saveRDS(all_wx, "./inst/extdata/wx_stations.rds")
 

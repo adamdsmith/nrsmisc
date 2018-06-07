@@ -69,23 +69,23 @@ extract_meta <- function(meta_list, elems) {
 
   # Stations IDs
   stns <- data.frame(sids = unlist(meta_list$sids), stringsAsFactors = FALSE)
-  stns <- setNames(data.frame(do.call(rbind, strsplit(stns$sids, split=" ")),
+  stns <- stats::setNames(data.frame(do.call(rbind, strsplit(stns$sids, split=" ")),
                               stringsAsFactors = FALSE),
                    c("stn", "code")) %>%
-    mutate(code = as.integer(code)) %>%
+    mutate(code = as.integer(.data$code)) %>%
     inner_join(stn_types, by = "code") %>%
-    mutate(stn_ids = paste(toupper(type), stn, sep = ": ")) %>%
-    pull(stn_ids)
+    mutate(stn_ids = paste(toupper(.data$type), .data$stn, sep = ": ")) %>%
+    pull(.data$stn_ids)
 
   # Weather variable date ranges
   wx_dr <- meta_list$valid_daterange
   names(wx_dr) <- elems
   wx_dr <- lapply(wx_dr, function(i) paste(i[[1]], i[[2]], sep = " to ")) %>%
     utils::stack() %>%
-    select(wx_var = ind, date_range = values) %>%
-    group_by(date_range) %>%
-    summarize(wx_vars = paste(wx_var, collapse = ", ")) %>%
-    select(wx_vars, date_range)
+    select(wx_var = .data$ind, date_range = .data$values) %>%
+    group_by(.data$date_range) %>%
+    summarize(wx_vars = paste(.data$wx_var, collapse = ", ")) %>%
+    select(.data$wx_vars, .data$date_range)
 
   out <- list(stn_ids = stns, name = nm, wx_dr = wx_dr)
   out

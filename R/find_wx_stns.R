@@ -49,7 +49,7 @@ find_wx_stns <- function(lon = NULL, lat = NULL, address = NULL, asos_only = FAL
   stns <- arrange(stns, .data$dist_km)
 
   if (asos_only)
-    stns <- filter(stns, ASOS)
+    stns <- filter(stns, .data$ASOS)
   out <- utils::head(stns, n_stns)
 
   if (plot) {
@@ -58,7 +58,7 @@ find_wx_stns <- function(lon = NULL, lat = NULL, address = NULL, asos_only = FAL
     if (!requireNamespace("ggplot2", quietly = TRUE))
       install.packages("ggplot2", quiet = TRUE)
     plot_df <- bind_rows(
-      select(out, id, lon, lat),
+      select(out, .data$id, .data$lon, .data$lat),
       data.frame(id = "INPUT", lon = lon, lat = lat,
                  stringsAsFactors = FALSE)
     )
