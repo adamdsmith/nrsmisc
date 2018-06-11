@@ -116,8 +116,8 @@ pairs_plus <- function (x, cor_method = c("spearman", "pearson", "kendall"),
   old_par <- graphics::par(no.readonly = TRUE)
   on.exit(graphics::par(old_par))
 
-  graphics::pairs(x, diag.panel = panel_hist_density, lower.panel = panel_smoother,
-                  upper.panel = panel_cor, pch = pch)
+  graphics::pairs(x, diag.panel = panel_hist_density, upper.panel = panel_smoother,
+                  lower.panel = panel_cor, pch = pch)
 
 }
 
