@@ -72,7 +72,7 @@
 #'  \item STND - Station datum
 #' }
 #'
-#' @return A \code{data.frame} with data
+#' @return A \code{data.frame} with data or \code{NULL} if no data is found
 #' @export
 #' @examples \dontrun{
 #' # Two months of water level data at Vaca Key (8723970)
@@ -128,8 +128,16 @@ get_coop <- function(begin_date = NULL, end_date = NULL,
   if (req_dur < max_dur) {
     begin <- as.numeric(gsub("-", "", start))
     end <- as.numeric(gsub("-", "", end))
-    out <- rnoaa::coops_search(begin, end, station_name, product,
-                               datum, units, time_zone, application)
+    out <- try(rnoaa::coops_search(begin, end, station_name, product,
+                                   datum, units, time_zone, application),
+               silent = TRUE)
+    if (inherits(out, "try-error")) {
+      if (grepl("No data", attr(out, "condition")$message)) {
+        warning("No data was found for that station/product/date combination.",
+                call. = FALSE)
+        return(NULL)
+      } else stop(attr(out, "condition")$message, call. = FALSE)
+    }
     out <- out$data
   } else {
     by_dur <- case_when(
@@ -144,19 +152,31 @@ get_coop <- function(begin_date = NULL, end_date = NULL,
     dates <- seq.Date(as.Date(start), by = by_dur, length.out = n_durs)
     dates <- as.numeric(gsub("-", "", dates))
     out <- lapply(seq_along(dates), function(i) {
-      if (i > 1) {
+      if (i > 1) { # Skip first date
         start <- dates[i-1]; end <- dates[i]
         message("Processing ", by_dur, " beginning on ",
                 format(lubridate::ymd(start), format = "%d %B, %Y"))
-        tmp <- rnoaa::coops_search(start, end, station_name,
-                                   product, datum, units, time_zone,
-                                   application)
-        if (identical(product, "predictions"))
-          tmp <- tmp$predictions
-        else
-          tmp <- tmp$data %>% repair_monthly(start, end)
+        tmp <- try(rnoaa::coops_search(start, end, station_name,
+                                       product, datum, units, time_zone,
+                                       application), silent = TRUE)
+        if (inherits(tmp, "try-error")) {
+          if (grepl("No data", attr(out, "condition")$message))
+            tmp <- NULL
+          else
+            stop(attr(out, "condition")$message, call. = FALSE)
+        } else {
+          if (identical(product, "predictions"))
+            tmp <- tmp$predictions
+          else
+            tmp <- tmp$data %>% repair_monthly(start, end)
+        }
       }
     })
+    if (all(sapply(out, is.null))) {
+      warning("No data was found for that station/product/date combination.",
+              call. = FALSE)
+      return(NULL)
+    }
     out <- bind_rows(out) %>%
       filter(t >= lubridate::ymd(start),
              t <= lubridate::ymd(end),

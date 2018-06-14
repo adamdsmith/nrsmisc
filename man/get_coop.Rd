@@ -39,7 +39,7 @@ set to the name of your organization. Optional.}
 \item{end}{character or Date scalar of end date ("YYYY-MM-DD")}
 }
 \value{
-A \code{data.frame} with data
+A \code{data.frame} with data or \code{NULL} if no data is found
 }
 \description{
 This function is particularly useful for retrieving tide/water level data.
