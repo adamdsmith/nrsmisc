@@ -7,7 +7,7 @@
 \usage{
 get_coop(begin_date = NULL, end_date = NULL, station_name = NULL, product,
   datum = NULL, units = "metric", time_zone = "gmt",
-  application = "rnoaa", start = NULL, end = NULL)
+  application = "rnoaa", start = NULL, end = NULL, verbose = TRUE)
 }
 \arguments{
 \item{begin_date}{(numeric) Date in yyyymmdd format. One of
@@ -37,6 +37,8 @@ set to the name of your organization. Optional.}
 \item{start}{character or Date scalar of start date ("YYYY-MM-DD")}
 
 \item{end}{character or Date scalar of end date ("YYYY-MM-DD")}
+
+\item{verbose}{(logical) print messages while processing requests?}
 }
 \value{
 A \code{data.frame} with data or \code{NULL} if no data is found

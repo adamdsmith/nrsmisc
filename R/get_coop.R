@@ -31,6 +31,7 @@
 #'  set to the name of your organization. Optional.
 #' @param start character or Date scalar of start date ("YYYY-MM-DD")
 #' @param end character or Date scalar of end date ("YYYY-MM-DD")
+#' @param verbose (logical) print messages while processing requests?
 #'
 #' @details
 #' Options for the \code{product} paramater. Not all available at every station.
@@ -89,7 +90,8 @@
 get_coop <- function(begin_date = NULL, end_date = NULL,
                      station_name = NULL, product, datum = NULL,
                      units = "metric", time_zone = "gmt",
-                     application = "rnoaa", start = NULL, end = NULL) {
+                     application = "rnoaa", start = NULL, end = NULL,
+                     verbose = TRUE) {
 
   if (!requireNamespace("rnoaa", quietly = TRUE))
   install.packages("rnoaa", quiet = TRUE)
@@ -154,16 +156,17 @@ get_coop <- function(begin_date = NULL, end_date = NULL,
     out <- lapply(seq_along(dates), function(i) {
       if (i > 1) { # Skip first date
         start <- dates[i-1]; end <- dates[i]
-        message("Processing ", by_dur, " beginning on ",
-                format(lubridate::ymd(start), format = "%d %B, %Y"))
+        if (verbose)
+          message("Processing ", by_dur, " beginning on ",
+                  format(lubridate::ymd(start), format = "%d %B, %Y"))
         tmp <- try(rnoaa::coops_search(start, end, station_name,
                                        product, datum, units, time_zone,
                                        application), silent = TRUE)
         if (inherits(tmp, "try-error")) {
-          if (grepl("No data", attr(out, "condition")$message))
+          if (grepl("No data", attr(tmp, "condition")$message))
             tmp <- NULL
           else
-            stop(attr(out, "condition")$message, call. = FALSE)
+            stop(attr(tmp, "condition")$message, call. = FALSE)
         } else {
           if (identical(product, "predictions"))
             tmp <- tmp$predictions
