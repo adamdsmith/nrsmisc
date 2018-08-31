@@ -8,27 +8,17 @@
 #' @export
 
 read_access <- function(accdb, table) {
-  if (!requireNamespace("RODBC", quietly = TRUE))
-    install.packages("RODBC")
+  if (!requireNamespace("DBI", quietly = TRUE))
+    install.packages("DBI")
+  if (!requireNamespace("odbc", quietly = TRUE))
+    install.packages("odbc")
 
   full_acc <- normalizePath(accdb, winslash = "/")
-  tmp <- tempfile(fileext = ".R")
-  tmp_rds <- suppressWarnings(
-    normalizePath(tempfile(fileext = ".rds"), winslash = "/")
-  )
-  sink(file = tmp)
-  cat(
-    'options(stringsAsFactors = FALSE)\n',
-    'chan <- RODBC::odbcConnectAccess2007("', full_acc, '")\n',
-    'df <- RODBC::sqlFetch(chan, "', table, '")\n',
-    'RODBC::odbcClose(chan)\n',
-    'saveRDS(df, file = "', tmp_rds, '")\n', sep = '')
-  sink()
-  R32_path <- normalizePath(file.path(R.home(), "bin/i386/Rscript.exe"))
-  system(paste(shQuote(R32_path),
-               shQuote(tmp)),
-         invisible = TRUE)
-  df <- readRDS(tmp_rds)
+  con_string <- paste0("Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
+                       full_acc)
+  con <- DBI::dbConnect(odbc::odbc(),
+                        .connection_string = con_string)
+  df <- DBI::dbReadTable(con, table)
+  DBI::dbDisconnect(con)
   return(df)
 }
-
