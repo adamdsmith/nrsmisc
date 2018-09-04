@@ -4,12 +4,16 @@
 \alias{read_access}
 \title{Read table from a Microsoft Access database}
 \usage{
-read_access(accdb, table)
+read_access(accdb, table, check.names = FALSE)
 }
 \arguments{
 \item{accdb}{character scalar of file path to Access database}
 
 \item{table}{character scalar of table name in \code{accdb} to read}
+
+\item{check.names}{logical scalar; if \code{TRUE} variable names are checked
+to ensure that they are syntactically valid and, if necessary, made so by
+\code{make.names}. See \code{read.table}}
 }
 \description{
 This has been successfully tested on \code{mdb} and \code{accdb} files

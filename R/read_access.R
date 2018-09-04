@@ -5,9 +5,12 @@
 #'
 #' @param accdb character scalar of file path to Access database
 #' @param table character scalar of table name in \code{accdb} to read
+#' @param check.names logical scalar; if \code{TRUE} variable names are checked
+#'  to ensure that they are syntactically valid and, if necessary, made so by
+#'  \code{make.names}. See \code{read.table}
 #' @export
 
-read_access <- function(accdb, table) {
+read_access <- function(accdb, table, check.names = FALSE) {
   if (!requireNamespace("DBI", quietly = TRUE))
     install.packages("DBI")
   if (!requireNamespace("odbc", quietly = TRUE))
@@ -18,7 +21,7 @@ read_access <- function(accdb, table) {
                        full_acc)
   con <- DBI::dbConnect(odbc::odbc(),
                         .connection_string = con_string)
-  df <- DBI::dbReadTable(con, table)
+  df <- DBI::dbReadTable(con, table, check.names = check.names)
   DBI::dbDisconnect(con)
   return(df)
 }
