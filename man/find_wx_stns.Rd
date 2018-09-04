@@ -4,8 +4,8 @@
 \alias{find_wx_stns}
 \title{Find nearest ASOS weather station by geographic location (USA only)}
 \usage{
-find_wx_stns(lon = NULL, lat = NULL, address = NULL, asos_only = FALSE,
-  n_stns = 5, id_only = TRUE, plot = FALSE)
+find_wx_stns(lon = NULL, lat = NULL, address = NULL,
+  asos_only = FALSE, n_stns = 5, id_only = TRUE, plot = FALSE)
 }
 \arguments{
 \item{lon}{numeric scalar of position longitude (decimal degrees; WGS84)}

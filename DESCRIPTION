@@ -39,4 +39,4 @@ Suggests:
 LazyData: true
 URL: https://github.com/adamdsmith/nrsmisc
 BugReports: https://github.com/adamdsmith/nrsmisc/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

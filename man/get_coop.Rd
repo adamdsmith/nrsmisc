@@ -5,8 +5,8 @@
 \title{Wrapper of rnoaa::coops_search that allows retrieval of more than
  one API-restricted request window at a time.}
 \usage{
-get_coop(begin_date = NULL, end_date = NULL, station_name = NULL, product,
-  datum = NULL, units = "metric", time_zone = "gmt",
+get_coop(begin_date = NULL, end_date = NULL, station_name = NULL,
+  product, datum = NULL, units = "metric", time_zone = "gmt",
   application = "rnoaa", start = NULL, end = NULL, verbose = TRUE)
 }
 \arguments{
