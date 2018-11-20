@@ -1,18 +1,19 @@
 #' Add systematic empty elements to a vector
 #'
-#' Allows every *n*th element of a vector `x`` to either be (1)
-#'  replaced with an empty character placeholder (`empty = TRUE`;
-#'  default) or (2) omitted from the vector (`empty = FALSE``).
+#' Allows every \code{nth} element of a vector \code{x} to either be (1)
+#'  replaced with an empty character placeholder (\code{empty = TRUE};
+#'  default) or (2) omitted from the vector (\code{empty = FALSE}).
 #'  Additionally, it provides the option of requesting the inverse
-#'  (`inverse = TRUE`; not default) of the vector and associated
+#'  (\code{inverse = TRUE}; not default) of the vector and associated
 #'  empty or omitted elements. See examples.
 #'
-#' @param x numeric vector of air temperatures (in Celsius)
-#' @param nth numeric vector of dewpoint temperatures (in Celsius)
-#' @param empty logical; replace `nth` elements with empty character
-#'  (`TRUE`; default) or drop from vector (`FALSE`)?
-#' @param inverse logical; return the inverse of `x` after elements
-#'  are set to `empty` or omitted?
+#' @param x numeric vector
+#' @param nth numeric scalar indicating which elements of \code{x} to replace or remove, 
+#'  depending on the choice of the \code{empty} argument
+#' @param empty logical; replace \code{nth} elements with empty character
+#'  (TRUE; default) or drop from vector (FALSE)?
+#' @param inverse logical; return the inverse of \code{x} after elements
+#'  are set to empty or omitted?
 #' @export
 #' @examples
 #' numvec <- 0:20
