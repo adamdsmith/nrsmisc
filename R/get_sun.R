@@ -1,6 +1,6 @@
 #' Retrieve sunrise or sunset times by geographic location
 #'
-#' Very thin wrapper around \link[maptools]{sunriset} mainly for the
+#' Very thin wrapper around \link[maptools:sun-methods]{sunriset} mainly for the
 #'  output formatting
 #'
 #' @param lon numeric scalar of position longitude (decimal degrees; WGS84)

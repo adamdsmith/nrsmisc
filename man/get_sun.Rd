@@ -26,7 +26,7 @@ respectively.}
 Coordinated).}
 }
 \description{
-Very thin wrapper around \link[maptools]{sunriset} mainly for the
+Very thin wrapper around \link[maptools:sun-methods]{sunriset} mainly for the
  output formatting
 }
 \examples{

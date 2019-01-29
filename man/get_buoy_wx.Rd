@@ -9,7 +9,7 @@ get_buoy_wx(buoy = NULL, years = as.POSIXlt(Sys.Date())$year + 1900,
 }
 \arguments{
 \item{buoy}{character or integer scalar of buoy from which to retrieve weather.
-Browse at \url{http://www.ndbc.noaa.gov/} or see \link[rnoaa]{buoy_stations}.}
+Browse at \url{http://www.ndbc.noaa.gov/} or see \link[rnoaa:buoy]{buoy_stations}.}
 
 \item{years}{integer vector of years for which data are required}
 

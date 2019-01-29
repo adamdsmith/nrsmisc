@@ -7,7 +7,7 @@
 get_moon(datetime, lon, lat, exp_hrs = 6)
 }
 \arguments{
-\item{datetime}{\link[base]{POSIXct} vector of datetimes from which moon
+\item{datetime}{\link[base:DateTimeClasses]{POSIXct} vector of datetimes from which moon
 exposure should be calculated}
 
 \item{lon}{numeric scalar of position longitude (decimal degrees; WGS84)}
@@ -20,7 +20,7 @@ exposure}
 \description{
 This function calculates the proportion of the moon's face that is illuminated,
 and whether the moon is above horizon at a given location, for a user-specified
-number of hours from a provided \link[base]{POSIXct} object. Specifically, it
+number of hours from a provided \link[base:DateTimeClasses]{POSIXct} object. Specifically, it
 sums the proportion illuminated at the midpoint of every hour, conditional on
 the moon being above local horizon. Thus, the returned value ranges from zero
 (new moon or moon not above horizon) to \code{exp_hrs} (full moon above horizon

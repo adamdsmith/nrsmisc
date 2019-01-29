@@ -5,8 +5,8 @@
 \title{Wrapper of rnoaa::coops_search that allows retrieval of more than
  one API-restricted request window at a time.}
 \usage{
-get_coop(begin_date = NULL, end_date = NULL, station_name = NULL, product,
-  datum = NULL, units = "metric", time_zone = "gmt",
+get_coop(begin_date = NULL, end_date = NULL, station_name = NULL,
+  product, datum = NULL, units = "metric", time_zone = "gmt",
   application = "rnoaa", start = NULL, end = NULL, verbose = TRUE)
 }
 \arguments{
@@ -29,7 +29,7 @@ level products.}
 \item{units}{(character) One of 'metric' (default) or 'english' (imperial)}
 
 \item{time_zone}{(character) Time zone, one of 'gmt' (default), 'lst',
-or 'lst_ldt'. See details at \code{\link[rnoaa]{coops_search}}.}
+or 'lst_ldt'. See details at \code{\link[rnoaa:coops]{coops_search}}.}
 
 \item{application}{(character) If called within an external package,
 set to the name of your organization. Optional.}
@@ -47,14 +47,14 @@ A \code{data.frame} with data or \code{NULL} if no data is found
 This function is particularly useful for retrieving tide/water level data.
  Other functions in this package (e.g., \code{\link{get_wx}} or
  \code{\link{get_wx_ACIS}} may be better suited for basic meteorological data.
- All the products and options available at \code{\link[rnoaa]{coops_search}}
+ All the products and options available at \code{\link[rnoaa:coops]{coops_search}}
  are available here except the ability to pass additional options to Curl.
  We also add add optional \code{start} and \code{end} date formats to be
  more consistent with other functions in this package. However, calls to
- \code{\link[rnoaa]{coops_search}} without Curl options should work
+ \code{\link[rnoaa:coops]{coops_search}} without Curl options should work
  seemlessly with a call to \code{get_coop}. See example. Note, however,
  we return only the \code{data.frame} data component returned by
- \code{\link[rnoaa]{coops_search}}
+ \code{\link[rnoaa:coops]{coops_search}}
 }
 \details{
 Options for the \code{product} paramater. Not all available at every station.

@@ -4,14 +4,14 @@
 #' This function is particularly useful for retrieving tide/water level data.
 #'  Other functions in this package (e.g., \code{\link{get_wx}} or
 #'  \code{\link{get_wx_ACIS}} may be better suited for basic meteorological data.
-#'  All the products and options available at \code{\link[rnoaa]{coops_search}}
+#'  All the products and options available at \code{\link[rnoaa:coops]{coops_search}}
 #'  are available here except the ability to pass additional options to Curl.
 #'  We also add add optional \code{start} and \code{end} date formats to be
 #'  more consistent with other functions in this package. However, calls to
-#'  \code{\link[rnoaa]{coops_search}} without Curl options should work
+#'  \code{\link[rnoaa:coops]{coops_search}} without Curl options should work
 #'  seemlessly with a call to \code{get_coop}. See example. Note, however,
 #'  we return only the \code{data.frame} data component returned by
-#'  \code{\link[rnoaa]{coops_search}}
+#'  \code{\link[rnoaa:coops]{coops_search}}
 #'
 #' @param station_name (numeric) Required station name/number. See
 #'  \url{https://tidesandcurrents.noaa.gov/map/} to locate station
@@ -26,7 +26,7 @@
 #' level products.
 #' @param units (character) One of 'metric' (default) or 'english' (imperial)
 #' @param time_zone (character) Time zone, one of 'gmt' (default), 'lst',
-#'  or 'lst_ldt'. See details at \code{\link[rnoaa]{coops_search}}.
+#'  or 'lst_ldt'. See details at \code{\link[rnoaa:coops]{coops_search}}.
 #' @param application (character) If called within an external package,
 #'  set to the name of your organization. Optional.
 #' @param start character or Date scalar of start date ("YYYY-MM-DD")

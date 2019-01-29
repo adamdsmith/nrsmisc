@@ -6,7 +6,7 @@
 #'  output formatting
 #'
 #' @param buoy character or integer scalar of buoy from which to retrieve weather.
-#'  Browse at \url{http://www.ndbc.noaa.gov/} or see \link[rnoaa]{buoy_stations}.
+#'  Browse at \url{http://www.ndbc.noaa.gov/} or see \link[rnoaa:buoy]{buoy_stations}.
 #' @param years integer vector of years for which data are required
 #' @param out_tz time zone specification to be used for output. System-specific
 #'   (see \link[base]{timezones}. Default is "GMT" (UTC; Universal Time,
