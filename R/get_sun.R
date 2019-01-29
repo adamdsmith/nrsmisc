@@ -31,8 +31,8 @@ get_sun <- function (lon, lat, start = Sys.Date(),
     install.packages("maptools", quiet = TRUE)
 
   ll <- cbind(lon, lat)
-  start <- as.POSIXct(start, tz = "GMT")
-  end <- as.POSIXct(end, tz = "GMT")
+  start <- as.POSIXct(as.character(start), tz = out_tz)
+  end <- as.POSIXct(as.character(end), tz = out_tz)
   sequence <- seq(from = start, to = end, by = "days")
 
   sun <- lapply(direction, function(d) {
