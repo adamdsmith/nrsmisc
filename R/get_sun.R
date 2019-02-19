@@ -43,7 +43,7 @@ get_sun <- function (lon, lat, start = Sys.Date(),
     if (out_tz != "GMT") {
       attributes(tmp)$tzone <- out_tz
     }
-    tmp <- data.frame(date_str = as.character(sequence), tmp, stringsAsFactors = FALSE)
+    tmp <- data.frame(date_str = as.character(as.Date(sequence)), tmp, stringsAsFactors = FALSE)
     names(tmp)[2] <- d
     tmp
   })
