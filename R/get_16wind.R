@@ -19,7 +19,7 @@
 get_16wind <- function (degrees) {
 
   stopifnot(is.numeric(degrees))
-  if (any(!between(na.omit(degrees), 0, 360)))
+  if (any(!between(stats::na.omit(degrees), 0, 360)))
     stop("Bearings are expected in degrees and should be between 0 and 360.")
   sectors <- as.integer(degrees/22.5 + 0.5)
   points <- c("N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW")
